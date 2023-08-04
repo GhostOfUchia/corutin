@@ -1,0 +1,20 @@
+   Launch And Async
+
+ CoroutineScope(Dispatchers.IO).launch {
+        printFollowers()
+    }
+        suspend fun getFollower(): Int {
+            delay(1000)
+            return 55
+        }
+
+        suspend fun printFollowers() {
+            var fbFollower = 0
+           val job =  CoroutineScope(Dispatchers.IO).launch {
+                fbFollower = getFollower()
+            }
+            job.join()
+            Log.i(Tag, fbFollower.toString())
+        }
+}
+

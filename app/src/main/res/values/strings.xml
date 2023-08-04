@@ -1,0 +1,87 @@
+<resources>
+    <string name="app_name">Corutin</string>
+    <string name="Corutin">
+      Coroutines are computer program components that generalize subroutines
+        for non-preemptive multitasking, by allowing execution to be suspended and resumed.
+        Coroutines are well-suited for implementing familiar program components
+        such as cooperative tasks, exceptions, event loops, iterators, infinite lists and pipes.
+
+Melvin Conway coined the term coroutine in 1958 when he applied
+        it to the construction of an assembly program.
+        [1] The first published explanation of the coroutine appeared later, in 1963.[2]
+
+
+Contents
+1	Comparison with
+1.1	Subroutines
+1.2	Threads
+1.3	Generators
+1.4	Mutual recursion
+2	Common uses
+3	Native support
+4	Implementations
+4.1	C
+4.2	C++
+4.3	C#
+4.4	Clojure
+4.5	D
+4.6	Go
+4.7	Java
+4.8	JavaScript
+4.9	Kotlin
+4.10	Modula-2
+4.11	Mono
+4.12	.NET Framework
+4.13	Perl
+4.14	PHP
+4.15	Python
+4.16	Ruby
+4.17	Rust
+4.18	Scala
+4.19	Scheme
+4.20	Smalltalk
+4.21	Swift
+4.22	Tool Command Language (Tcl)
+4.23	Vala
+4.24	Assembly languages
+5	See also
+6	References
+7	Further reading
+8	External links
+Comparison with
+Subroutines
+Subroutines are special cases of coroutines.[3] When subroutines are invoked,
+        execution begins at the start, and once a subroutine exits,
+        it is finished; an instance of a subroutine only returns once,
+        and does not hold state between invocations. By contrast,
+        coroutines can exit by calling other coroutines, which may later return to
+        the point where they were invoked in the original coroutine;
+        from the coroutin.
+        [3] Thus, a coroutine instance holds state, and varies between invocations; there can be multiple instances of a given coroutine at once. The difference between calling another coroutine by means of "yielding" to it and simply calling another routine (which then, also, would return to the original point), is that the relationship between two coroutines which yield to each other is not that of caller-callee, but instead symmetric.
+
+
+
+Here is a simple example of how coroutines can be useful. Suppose you have a consumer-producer relationship where one routine creates items and adds them to a queue and another removes items from the queue and uses them. For reasons of efficiency, you want to add and remove several items at once. The code might look like this:
+
+var q := new queue
+
+coroutine produce
+    loop
+        while q is not full
+            create some new items
+            add the items to q
+        yield to consume
+
+coroutine consume
+    loop
+        while q is not empty
+            remove some items from q
+            use the items
+        yield to produce
+
+call produce
+The queue is then completely filled or emptied before yielding control to the other coroutine using the yield command. The further coroutines calls are starting right after the yield, in the outer coroutine loop.
+
+Although this example is often used as an introduction to multithreading, two threads are not needed for this: the yield statement can be implemented by a jump directly from one routine into the other.
+    </string>
+</resources>
